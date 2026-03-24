@@ -1,0 +1,157 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1d57ddce-ae0c-4921-97bd-83cb1fc72ac2",
+              "name": "รหัสสินค้า ",
+              "value": "={{ $json['รหัสสินค้า'] }}",
+              "type": "string"
+            },
+            {
+              "id": "530aa17b-b7e9-4ffc-ac5c-2c701a8840cb",
+              "name": "ชื่อสินค้า",
+              "value": "={{ $json['ชื่อสินค้า'] }}",
+              "type": "string"
+            },
+            {
+              "id": "69b3b53f-4035-4859-9dc9-5f0a46737f7e",
+              "name": "จำนวน",
+              "value": "={{ $json['จำนวน'] }}",
+              "type": "number"
+            },
+            {
+              "id": "31384728-cd5a-4faf-a8f0-b7fbcdc0beea",
+              "name": "ราคา",
+              "value": "={{ $json['ราคา'] }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        400,
+        -32
+      ],
+      "id": "040299f8-127c-4937-8082-faa3b03a309a",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        608,
+        -32
+      ],
+      "id": "bf68c3ca-6791-444d-b762-b96660330d0f",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "path": "get-products",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        16,
+        -32
+      ],
+      "id": "5d275753-52fd-45a8-9168-85b9e0ac834b",
+      "name": "Webhook",
+      "webhookId": "f2c6daab-3d14-4fbf-aff2-9a0a219cbd05"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1YSZ4f1BsHYZGfmQqpVE9myQ1xXHVXVQy7QMjyoQPRv0",
+          "mode": "list",
+          "cachedResultName": "Products",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1YSZ4f1BsHYZGfmQqpVE9myQ1xXHVXVQy7QMjyoQPRv0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "products_67703076",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1YSZ4f1BsHYZGfmQqpVE9myQ1xXHVXVQy7QMjyoQPRv0/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        224,
+        -32
+      ],
+      "id": "bb17fbac-931e-4308-bd20-d3750dfeaa47",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "wUHwt7vZ6cj36CYy",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "57cad285-9e80-4d6e-aa2a-6975c291d43a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "831de37c9df22d84e03c768a4661bcda1a08182600e43bb671fc6be60c81fdbf"
+  },
+  "id": "1jDT7gU8XsC5gWCF",
+  "tags": []
+}
